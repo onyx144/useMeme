@@ -1,24 +1,23 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import useMeme from './hook/useMeme';
 function App() {
+  const { meme, loading, error } = useMeme();
+
+  if (loading) {
+    return <p>Loading meme...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Random meme:</h1>
+      {meme && <img src={meme} alt="Random meme" style={{ maxWidth: '100%' }} />}
+      <button onClick={() => window.location.reload()}>Loading another meme</button>
     </div>
   );
 }
